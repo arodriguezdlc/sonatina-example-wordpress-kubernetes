@@ -1,4 +1,3 @@
 # Global static
-httpd_version = "2.4"
-port = 8080
-sentence = "This is a httpd server deployed for the global component"
+
+mysql_image = "mysql:5.7"

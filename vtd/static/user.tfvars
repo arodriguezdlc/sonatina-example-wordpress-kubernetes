@@ -1,4 +1,4 @@
-# Global static
-httpd_version = "2.4"
-port = 8080
-sentence = "This is a httpd server deployed for an user component"
+# User static
+
+wordpress_image = "wordpress:5.5.1-php7.2-apache"
+mysql_image     = "mysql:5.7"

@@ -1,24 +1,65 @@
-variable "httpd_version" {
+provider "kubernetes" {}
+
+variable "user_component" {
   type = string
 }
 
-variable "name" {
+variable "database_password" {
   type = string
 }
 
-variable "port" {
+variable "wordpress_image" {
+  type = string
+}
+
+variable "mysql_image" {
+  type = string
+}
+
+variable "wordpress_replicas" {
   type = number
 }
 
-variable "sentence" {
+variable "wordpress_cpu_limit" {
   type = string
 }
 
-module "docker-httpd" {
-  source = "../../modules/docker-httpd"
+variable "wordpress_cpu_request" {
+  type = string
+}
 
-  name  = var.name
-  httpd_version = var.httpd_version
-  port = var.port
-  sentence = var.sentence
+variable "wordpress_ram_limit" {
+  type = string
+}
+
+variable "wordpress_ram_request" {
+  type = string
+}
+ 
+module "wordpress" {
+  source = "../../../modules/wordpress"
+
+  depends_on = [ module.database_user ]
+
+  user_component = var.user_component
+  
+  database_user     = var.user_component
+  database_password = var.database_password
+
+  image = var.wordpress_image
+
+  replicas    = var.wordpress_replicas
+  cpu_request = var.wordpress_cpu_request
+  cpu_limit   = var.wordpress_cpu_limit
+  ram_request = var.wordpress_ram_request
+  ram_limit   = var.wordpress_ram_limit
+}
+
+module "database_user" {
+  source = "../../../modules/database-user"
+
+  user = var.user_component
+  password = var.database_password
+
+  mysql_image = var.mysql_image
 }
