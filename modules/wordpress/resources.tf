@@ -82,7 +82,7 @@ resource "kubernetes_secret" "wordpress_database" {
 
 resource "kubernetes_service" "wordpress" {
   metadata {
-    name = "wordpress"
+    name = "wordpress-${var.user_component}"
   }
 
   spec {
