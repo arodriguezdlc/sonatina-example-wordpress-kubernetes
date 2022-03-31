@@ -4,6 +4,7 @@ resource "kubernetes_job" "database_setup" {
   }
 
   spec {
+    ttl_seconds_after_finished = 3600
     template {
       metadata {}
       spec {
