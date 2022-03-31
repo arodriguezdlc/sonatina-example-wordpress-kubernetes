@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "1.13.4"
+    }
+  }
+}
+
 provider "kubernetes" {}
 
 variable "user_component" {
